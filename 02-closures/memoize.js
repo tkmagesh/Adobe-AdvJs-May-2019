@@ -19,4 +19,9 @@ var isPrime = memoize(function checkPrime(n){
 var isOddOrEven = memoize(function checkOddOrEven(n){
 	console.log('processing ', n);
 	return n % 2 === 0 ? 'even' : 'odd';
-})
+});
+
+var add = memoize(function add(x,y){
+	console.log('processing ', x, ' and ', y);
+	return x + y;
+});
