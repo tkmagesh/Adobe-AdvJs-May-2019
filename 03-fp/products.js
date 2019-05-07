@@ -14,6 +14,13 @@ function describe(title, fn){
 	console.groupEnd();
 }
 
+function describeGroup(groupedObj){
+	for(var key in groupedObj)
+		describe('Key - [' + key + ']', function(){
+			console.table(groupedObj[key]);
+		});
+}
+
 describe('Default List', function(){
 	console.table(products);
 });
@@ -208,7 +215,7 @@ describe('GroupBy', function(){
 		}
 
 		var productsByCategory = groupProductsByCategory();
-		console.log(productsByCategory);
+		describeGroup(productsByCategory);
 	})
 
 	describe('Any list by any attribute', function(){
@@ -226,7 +233,7 @@ describe('GroupBy', function(){
 
 		describe('products by category', function(){
 			var productsByCategory = groupBy(products, 'category');
-			console.log(productsByCategory);
+			describeGroup(productsByCategory);
 		});
 
 	});
@@ -249,7 +256,7 @@ describe('GroupBy', function(){
 				return product.cost > 50 ? 'costly' : 'affordable';
 			};
 			var productsByCost = groupBy(products, costKeySelector);
-			console.log(productsByCost);
+			describeGroup(productsByCost);
 		});
 	});
 });

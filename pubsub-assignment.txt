@@ -1,0 +1,18 @@
+Phase - 1
+pubsub
+	- emit( evtName, [data1, data2,....] )
+	- subscribe(evtName , fn)	
+	- unsubscribe(evtName, fn)
+
+Phase - 2
+- subscribe(evtName , fn1, fn2, fn3)
+- unsubscribe(evtName, fn1, fn2, fn3)
+
+Phase - 3
+pubsub
+	.subscribe(evtName, fn)
+	.emit(evtName, data)
+	.unsubscribe(evtName, fn)
+
+
+
