@@ -56,8 +56,10 @@ describe('Sorting', function(){
 						list[i] = list[j];
 						list[j] = temp;
 					}
+
+			
 		}
-		
+
 		describe('Any list by any attribute', function(){
 			/*function sort(list, attrName){
 				for(var i = 0; i < list.length -1; i++)
@@ -107,9 +109,50 @@ describe('Sorting', function(){
 	});
 });
 
-/*describe('Filtering', function(){
+describe('Filtering', function(){
 	describe('Default filter [ stationary products ]', function(){
-		function filterStationaryProducts(){}
-		console.table(products);
+		function filterStationaryProducts(){
+			var stationaryProducts = [];
+			for(var i = 0; i < products.length; i++)
+				if (products[i].category === 'stationary')
+					stationaryProducts.push(products[i]);
+			return stationaryProducts;
+		}
+		var stationaryProducts = filterStationaryProducts();
+		console.table(stationaryProducts);
 	});
-});*/
+
+	describe('Any list by any criteria',  function(){
+		function filter(list, predicate){
+			var result = [];
+			for(var i = 0; i < list.length; i++)
+				if (predicate(list[i]))
+					result.push(list[i]);
+			return result;
+		}
+
+		describe('costly products [ cost > 50 ]', function(){
+			var isCostly = function(product){
+				return product.cost > 50;
+			};
+			var costlyProducts = filter(products, isCostly);
+			console.table(costlyProducts);
+		});
+
+		describe('affordable products', function(){
+			//
+		});
+
+		describe('understocked products [ units < 50 ]', function(){
+			var isUnderstocked = function(product){
+				return product.units < 50;
+			};
+			var understockedProducts = filter(products, isUnderstocked);
+			console.table(understockedProducts);
+		});
+
+		describe('wellstocked products', function(){
+			//
+		})
+	});
+});
