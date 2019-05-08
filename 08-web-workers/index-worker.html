@@ -14,7 +14,7 @@
 			}
 			function onBtnDoWorkClick(){
 				displayMessage('Work Started');
-				worker.postMessage('start')
+				worker.postMessage({type : 'start'})
 				
 			}
 			function displayMessage(msg){
@@ -22,8 +22,11 @@
 			}
 
 			worker.addEventListener('message', function(evtArg){
-				if (evtArg.data === 'completed'){
+				if (evtArg.data.type === 'completed'){
 					displayMessage('Work Completed');	
+				}
+				if (evtArg.data.type === 'progress'){
+					document.getElementById('workProgress').value = evtArg.data.percentCompleted;
 				}
 			});
 
