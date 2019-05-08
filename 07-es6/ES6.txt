@@ -16,6 +16,10 @@ ES6
 14. classes
 15. object initialization
 
+http://es6-features.org
+========================
+
+
 var Spinner = (function(){
     var counterSymbol = Symbol();
     function Spinner(){

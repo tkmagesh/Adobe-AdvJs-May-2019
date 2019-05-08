@@ -1,3 +1,5 @@
+//ES5
+/*
 var pubsub = (function(){
 	var _events = {
 
@@ -34,6 +36,45 @@ var pubsub = (function(){
 		});
 		return this;
 	};
+
+	return function(evtName){
+		_events[evtName] = _events[evtName] || new PubSub(evtName);
+		return _events[evtName];
+	}
+})();
+*/
+
+const pubsub = (function(){
+	const _events = {};
+
+	class PubSub {
+		cosntructor(evtName){
+			this._name = evtName;
+			this._subscribers = [];
+		}
+
+		emit(...args){
+			this._subscribers.forEach(subscriptionFn => subscriptionFn(...args));
+			return this;
+		}
+
+		subscribe(...args){
+			args.forEach(subscriptionFn => {
+				if (typeof subscriptionFn === 'function')
+					this._subscribers.push(subscriptionFn);
+			});
+			return this;
+		}
+
+		unsubscribe(...args) {
+			args.forEach(subscriptionFn => {
+				if (this._subscribers.indexOf(subscriptionFn) >= 0){
+					this._subscribers.splice(this._subscribers.indexOf(subscriptionFn), 1);
+				}
+			});
+			return this;
+		}
+	}
 
 	return function(evtName){
 		_events[evtName] = _events[evtName] || new PubSub(evtName);
