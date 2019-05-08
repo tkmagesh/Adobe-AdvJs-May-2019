@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Scheduler Demo</title>
+	<script>
+		(function(){
+			window.addEventListener('load', init);
+			var worker = new Worker('./worker-task.js');
+
+			function init(){
+				var btnDoWork = document.getElementById('btnDoWork');
+				btnDoWork.addEventListener('click', onBtnDoWorkClick);
+			}
+			function onBtnDoWorkClick(){
+				displayMessage('Work Started');
+				worker.postMessage('start')
+				
+			}
+			function displayMessage(msg){
+				document.getElementById('divMessages').innerHTML += msg + '<br/>';
+			}
+
+			worker.addEventListener('message', function(evtArg){
+				if (evtArg.data === 'completed'){
+					displayMessage('Work Completed');	
+				}
+			});
+
+		})();
+	</script>
+</head>
+<body>
+	<h1>Scheduler</h1>
+	<hr>
+	<input type="text" name="" id="">
+	<input type="button" value="Do Work" id="btnDoWork">
+	<div>
+		<progress id="workProgress" min="0" max="100" value="0"></progress>
+	</div>
+	<div id="divMessages"></div>
+</body>
+</html>
